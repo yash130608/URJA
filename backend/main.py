@@ -127,6 +127,7 @@ class ApplianceInput(BaseModel):
 def home():
     return FileResponse(FRONTEND_DIR / "index.html")
 
+
 @app.get("/service-worker.js")
 def get_service_worker():
     return FileResponse(
