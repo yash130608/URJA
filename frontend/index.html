@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101a2d">
+  <meta name="description" content="URJA helps you understand electricity use, estimate bills and find ways to save energy.">
+  <title>URJA — Smart Energy, Smarter Living</title>
+  <link rel="icon" href="/static/assets/urja-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+
+  <section id="authScreen" class="auth-shell">
+    <div class="auth-visual">
+      <div class="visual-overlay"></div>
+      <a class="brand brand-light" href="#"><img src="/static/assets/urja-logo.svg" alt="URJA logo"><span>URJA</span></a>
+      <div class="visual-copy">
+        <span class="eyebrow">A BRIGHTER WAY TO LIVE</span>
+        <h1>Make every<br><em>watt</em> count.</h1>
+        <p>Understand your energy habits, plan your electricity costs and make smarter everyday choices.</p>
+        <div class="visual-stat"><span class="stat-orb">✦</span><span><b>Small changes.</b><br>Meaningful energy savings.</span></div>
+      </div>
+      <div class="visual-credit">SMART ENERGY MANAGEMENT</div>
+    </div>
+    <div class="auth-panel">
+      <button id="authTheme" class="icon-button auth-theme" aria-label="Toggle theme">◐</button>
+      <div class="auth-form-wrap">
+        <div class="mobile-brand brand"><img src="/static/assets/urja-logo.svg" alt=""><span>URJA</span></div>
+        <span class="eyebrow accent">WELCOME TO URJA</span>
+        <h2 id="authTitle">Welcome back</h2>
+        <p id="authSubtitle" class="muted">Sign in to see your energy dashboard.</p>
+        <form id="authForm">
+          <div id="nameField" class="field hidden"><label for="authName">Your name</label><input id="authName" type="text" placeholder="e.g. Yash Shukla" autocomplete="name"></div>
+          <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" required autocomplete="email"></div>
+          <div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="At least 8 characters" required minlength="8" autocomplete="current-password"></div>
+          <button id="authSubmit" class="button primary full" type="submit">Sign in <span>→</span></button>
+        </form>
+        <p class="auth-switch"><span id="switchText">New to URJA?</span> <button id="switchAuth" class="text-button">Create an account</button></p>
+        <div class="privacy-note">🔒 Your account data is stored locally in this project's database.</div>
+      </div>
+      <footer class="auth-footer">© 2026 URJA Energy · Built for a brighter tomorrow</footer>
+    </div>
+  </section>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand sidebar-brand" href="#"><img src="/static/assets/urja-logo.svg" alt="URJA logo"><span>URJA<small>ENERGY COMPANION</small></span></a>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="overview"><span>▦</span> Overview</button>
+        <button class="nav-item" data-view="appliances"><span>⌂</span> My appliances</button>
+        <button class="nav-item" data-view="insights"><span>◒</span> Energy insights</button>
+      </nav>
+      <div class="sidebar-card">
+        <div class="sun-icon">☀</div>
+        <b>Every watt matters</b>
+        <p>Track your habits and discover small ways to use energy wisely.</p>
+        <a href="#tips" data-view-link="insights">Explore tips ↗</a>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="nav-item" id="themeToggle"><span>◐</span> Switch appearance</button>
+        <button class="nav-item" id="logoutBtn"><span>↪</span> Sign out</button>
+        <div class="profile-mini"><div class="avatar" id="avatarInitial">U</div><div><b id="sideName">User</b><small id="sideEmail">user@email.com</small></div><span class="online-dot"></span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button id="menuToggle" class="icon-button mobile-menu" aria-label="Open menu">☰</button>
+        <div><div class="breadcrumb">Workspace <span>/</span> <b id="breadcrumbPage">Overview</b></div><div class="top-date" id="todayDate"></div></div>
+        <div class="top-actions"><button id="topThemeToggle" class="icon-button" aria-label="Toggle theme">◐</button><button class="button primary add-top" id="quickAddBtn">＋ Add appliance</button></div>
+      </header>
+
+      <section class="page-content">
+        <section id="overviewView" class="view">
+          <div class="welcome-row"><div><span class="eyebrow accent">YOUR ENERGY, AT A GLANCE</span><h1>Good energy, <span id="welcomeName">there</span> <span class="wave">✦</span></h1><p class="muted">Here's the story behind your electricity use.</p></div><div class="period-pill"><span class="live-dot"></span> Your estimates</div></div>
+          <div class="hero-banner">
+            <div class="hero-banner-copy"><span class="eyebrow">BE ENERGY AWARE</span><h2>A smarter home<br>starts with <em>one insight.</em></h2><p>Know what uses power. Plan what you spend. Make every unit count.</p><button class="button light-button" data-go="insights">Explore energy insights <span>↗</span></button></div>
+            <div class="hero-art"><div class="hero-ring ring-one"></div><div class="hero-ring ring-two"></div><div class="hero-bolt">ϟ</div><div class="hero-leaf">✦</div></div>
+          </div>
+
+          <div class="section-heading"><div><h2>Your energy snapshot</h2><p class="muted">Based on the appliances you've added</p></div><button class="subtle-button" data-go="appliances">Manage appliances ↗</button></div>
+          <div class="metrics-grid">
+            <article class="metric-card metric-green"><div class="metric-top"><span>Estimated monthly use</span><span class="metric-icon">ϟ</span></div><div class="metric-value"><strong id="monthlyKwh">0.00</strong><small>kWh</small></div><div class="metric-foot">Calculated from your appliance usage</div><div class="metric-spark">〰</div></article>
+            <article class="metric-card metric-purple"><div class="metric-top"><span>Estimated monthly bill</span><span class="metric-icon">₹</span></div><div class="metric-value"><strong id="monthlyCost">₹0</strong></div><div class="metric-foot">Using your selected rate per unit</div><div class="metric-spark">⌁</div></article>
+            <article class="metric-card metric-orange"><div class="metric-top"><span>Daily consumption</span><span class="metric-icon">◷</span></div><div class="metric-value"><strong id="dailyKwh">0.00</strong><small>kWh</small></div><div class="metric-foot">Average for a typical day</div><div class="metric-spark">〰</div></article>
+            <article class="metric-card metric-blue"><div class="metric-top"><span>Estimated CO₂ footprint</span><span class="metric-icon">♧</span></div><div class="metric-value"><strong id="co2Value">0.0</strong><small>kg</small></div><div class="metric-foot">Approximate monthly grid emissions</div><div class="metric-spark">⌁</div></article>
+          </div>
+
+          <div class="content-grid">
+            <article class="panel chart-panel"><div class="panel-heading"><div><h3>Appliance energy breakdown</h3><p class="muted">Estimated monthly consumption by appliance</p></div><span class="panel-tag">THIS MONTH</span></div><div class="chart-wrap"><canvas id="usageChart"></canvas><div id="chartEmpty" class="chart-empty">Add an appliance to see your energy breakdown.</div></div></article>
+            <article class="panel rate-panel"><div class="panel-heading"><div><h3>Bill estimator</h3><p class="muted">Adjust your electricity rate</p></div><span class="rate-icon">₹</span></div><label class="rate-label" for="tariffInput">Estimated rate per kWh (unit)</label><div class="rate-input-wrap"><span>₹</span><input id="tariffInput" type="number" min="0.1" max="1000" step="0.1" value="7.5"></div><p class="tiny muted">Use the per-unit rate from your electricity bill for a closer estimate.</p><div class="estimate-total"><span>Estimated total</span><b id="estimateBill">₹0.00</b></div><div class="estimate-note">This is an estimate and excludes fixed charges, taxes and slab adjustments.</div></article>
+          </div>
+          <div class="section-heading tips-heading" id="tips"><div><h2>Little changes, brighter impact</h2><p class="muted">A few practical habits to consider</p></div></div>
+          <div class="tips-grid"><article class="tip-card"><div class="tip-icon mint">☀</div><h3>Use daylight</h3><p>Open curtains during the day to reduce the need for artificial lighting.</p></article><article class="tip-card"><div class="tip-icon lilac">❄</div><h3>Set AC thoughtfully</h3><p>A moderate cooling setting can balance comfort and electricity use.</p></article><article class="tip-card"><div class="tip-icon peach">⏻</div><h3>Switch off standby</h3><p>Turn off devices when they're not needed instead of leaving them on.</p></article></div>
+          <p class="disclaimer">URJA uses appliance ratings and the hours you enter to estimate energy use. Actual meter readings and electricity bills may differ.</p>
+        </section>
+
+        <section id="appliancesView" class="view hidden">
+          <div class="page-title-row"><div><span class="eyebrow accent">YOUR HOME INVENTORY</span><h1>My appliances</h1><p class="muted">Add the devices you use to understand where your energy goes.</p></div><button class="button primary" id="addApplianceBtn">＋ Add appliance</button></div>
+          <div class="appliance-summary panel"><div><span class="muted">Tracked devices</span><strong id="applianceCount">0</strong></div><div><span class="muted">Estimated monthly use</span><strong id="applianceUsage">0 kWh</strong></div><div><span class="muted">Estimated monthly cost</span><strong id="applianceCost">₹0</strong></div></div>
+          <div id="applianceList" class="appliance-grid"></div>
+          <div id="emptyAppliances" class="empty-state panel"><div class="empty-illustration">ϟ</div><h3>Your energy story starts here</h3><p>Add your first appliance to calculate its estimated electricity use.</p><button class="button primary" id="emptyAddBtn">＋ Add your first appliance</button></div>
+        </section>
+
+        <section id="insightsView" class="view hidden">
+          <div class="page-title-row"><div><span class="eyebrow accent">MAKE INFORMED CHOICES</span><h1>Energy insights</h1><p class="muted">Understand your estimated usage and build better habits.</p></div></div>
+          <div class="insight-hero"><div><span class="eyebrow">YOUR ENERGY COMPANION</span><h2>Awareness is the<br>first step to <em>saving.</em></h2><p>Use your appliance estimates to spot energy-heavy devices and decide where a small change could help.</p></div><div class="insight-symbol">✳</div></div>
+          <div class="content-grid insight-content"><article class="panel"><h3>What your numbers mean</h3><div class="insight-line"><span class="insight-dot green"></span><div><b>kWh (units)</b><p class="muted">One kilowatt-hour is the energy used by a 1,000-watt appliance running for one hour.</p></div></div><div class="insight-line"><span class="insight-dot purple"></span><div><b>Estimated bill</b><p class="muted">Your estimated kWh multiplied by your selected per-unit rate. Your actual bill can include other charges.</p></div></div><div class="insight-line"><span class="insight-dot orange"></span><div><b>Estimated CO₂</b><p class="muted">A broad illustration using an approximate grid-emissions factor, not an official carbon report.</p></div></div></article><article class="panel"><h3>Personalised energy nudges</h3><div id="smartTips" class="smart-tips"><p class="muted">Add appliances to receive suggestions based on your estimated usage.</p></div></article></div>
+          <div class="tips-grid extra-tips"><article class="tip-card"><div class="tip-icon mint">💡</div><h3>Choose efficient lighting</h3><p>LED bulbs generally use less electricity than traditional incandescent bulbs for similar light output.</p></article><article class="tip-card"><div class="tip-icon lilac">🌬</div><h3>Keep airflow clear</h3><p>Clean filters and keep vents clear so cooling equipment can work as intended.</p></article><article class="tip-card"><div class="tip-icon peach">📋</div><h3>Check your bill</h3><p>Compare your estimate with your actual meter reading and bill to improve future estimates.</p></article></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="applianceModal" class="modal-backdrop hidden">
+    <div class="modal panel">
+      <div class="modal-heading"><div><span class="eyebrow accent">BUILD YOUR ENERGY PROFILE</span><h2>Add an appliance</h2><p class="muted">Enter the rating from the device label or manual.</p></div><button id="closeModal" class="icon-button" aria-label="Close">×</button></div>
+      <form id="applianceForm" class="appliance-form">
+        <div class="field"><label for="applianceName">Appliance name</label><input id="applianceName" placeholder="e.g. Bedroom ceiling fan" required maxlength="80"></div>
+        <div class="form-row"><div class="field"><label for="applianceCategory">Category</label><select id="applianceCategory"><option>Cooling</option><option>Lighting</option><option>Kitchen</option><option>Entertainment</option><option>Cleaning</option><option>Other</option></select></div><div class="field"><label for="applianceWatts">Power rating (watts)</label><input id="applianceWatts" type="number" min="1" max="20000" placeholder="75" required></div></div>
+        <div class="form-row"><div class="field"><label for="applianceQuantity">Quantity</label><input id="applianceQuantity" type="number" min="1" max="100" value="1" required></div><div class="field"><label for="applianceHours">Hours used per day</label><input id="applianceHours" type="number" min="0.1" max="24" step="0.1" placeholder="8" required></div></div>
+        <div class="field"><label for="applianceDays">Days used per month</label><input id="applianceDays" type="number" min="1" max="31" value="30" required></div>
+        <div class="calculation-preview"><span>Estimated monthly consumption</span><strong id="previewKwh">0.00 kWh</strong></div>
+        <button class="button primary full" type="submit">Save appliance <span>→</span></button>
+      </form>
+    </div>
+  </div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
